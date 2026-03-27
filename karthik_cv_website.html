@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karthik A N — Agricultural Scientist</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --soil: #3d2b1f;
+    --bark: #6b4c35;
+    --moss: #4a6741;
+    --leaf: #6d9b52;
+    --wheat: #c8a95e;
+    --cream: #f5f0e8;
+    --fog: #ede8de;
+    --white: #faf8f3;
+    --ink: #1e1510;
+    --accent: #b85c2a;
+    --accent2: #4a6741;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--ink);
+    font-family: 'Lora', serif;
+    overflow-x: hidden;
+  }
+
+  /* ── GRAIN OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(245,240,232,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(61,43,31,0.1);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    color: var(--soil);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--bark);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--soil);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8rem 4rem 5rem;
+    position: relative;
+  }
+
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 60px,
+      rgba(255,255,255,0.015) 60px,
+      rgba(255,255,255,0.015) 61px
+    );
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--wheat);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 900;
+    line-height: 0.95;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--wheat);
+    display: block;
+  }
+
+  .hero-title {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    color: rgba(245,240,232,0.6);
+    line-height: 1.6;
+    max-width: 320px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+    margin-bottom: 3rem;
+  }
+
+  .hero-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .hero-contact span {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: rgba(200,169,94,0.8);
+    letter-spacing: 0.05em;
+  }
+
+  .hero-right {
+    background: var(--fog);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 4rem 5rem;
+    position: relative;
+  }
+
+  .hero-deco {
+    position: absolute;
+    top: 4rem;
+    right: 3rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 12rem;
+    font-weight: 900;
+    color: rgba(61,43,31,0.04);
+    line-height: 1;
+    user-select: none;
+  }
+
+  .quick-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    opacity: 0;
+    animation: fadeIn 1s 1s forwards;
+  }
+
+  .stat-box {
+    background: var(--white);
+    padding: 1.8rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, background 0.3s;
+    cursor: default;
+  }
+
+  .stat-box:hover {
+    background: var(--soil);
+    transform: scale(1.02);
+  }
+
+  .stat-box:hover .stat-num,
+  .stat-box:hover .stat-label { color: var(--cream); }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+    transition: color 0.3s;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bark);
+    margin-top: 0.5rem;
+    transition: color 0.3s;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 6rem 0;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--wheat);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--soil);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--wheat), transparent);
+  }
+
+  /* ── EDUCATION ── */
+  #education {
+    background: var(--white);
+  }
+
+  .edu-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .edu-item {
+    display: grid;
+    grid-template-columns: 180px 1fr auto;
+    gap: 2rem;
+    align-items: center;
+    padding: 1.8rem 0;
+    border-bottom: 1px solid rgba(61,43,31,0.08);
+    transition: background 0.3s;
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  .edu-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 0;
+    background: var(--accent);
+    transition: height 0.4s;
+  }
+
+  .edu-item:hover::before { height: 70%; }
+
+  .edu-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--bark);
+    letter-spacing: 0.05em;
+  }
+
+  .edu-degree {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--soil);
+    margin-bottom: 0.3rem;
+  }
+
+  .edu-inst {
+    font-family: 'Lora', serif;
+    font-size: 0.85rem;
+    color: var(--bark);
+    font-style: italic;
+  }
+
+  .edu-marks {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--leaf);
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .edu-marks small {
+    display: block;
+    font-size: 0.6rem;
+    color: var(--bark);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 0.2rem;
+  }
+
+  /* ── SKILLS ── */
+  #skills {
+    background: var(--soil);
+    color: var(--cream);
+  }
+
+  #skills .section-title { color: var(--cream); }
+  #skills .section-num { color: var(--wheat); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .skill-card {
+    background: rgba(255,255,255,0.04);
+    padding: 2rem 1.8rem;
+    border: 1px solid rgba(200,169,94,0.1);
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .skill-card:hover {
+    background: rgba(200,169,94,0.1);
+    border-color: rgba(200,169,94,0.4);
+  }
+
+  .skill-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .skill-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--wheat);
+    margin-bottom: 0.6rem;
+  }
+
+  .skill-desc {
+    font-size: 0.82rem;
+    color: rgba(245,240,232,0.6);
+    line-height: 1.6;
+  }
+
+  /* ── PUBLICATIONS ── */
+  #publications {
+    background: var(--fog);
+  }
+
+  .pub-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 2.5rem;
+    border-bottom: 2px solid rgba(61,43,31,0.1);
+  }
+
+  .pub-tab {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    color: var(--bark);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.3s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+
+  .pub-tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .pub-list { display: none; }
+  .pub-list.active { display: flex; flex-direction: column; gap: 1.2rem; }
+
+  .pub-item {
+    background: var(--white);
+    padding: 1.5rem 2rem;
+    border-left: 3px solid transparent;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .pub-item:hover {
+    border-left-color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  .pub-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--soil);
+    margin-bottom: 0.4rem;
+    line-height: 1.5;
+  }
+
+  .pub-journal {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--leaf);
+    letter-spacing: 0.05em;
+  }
+
+  .pub-authors {
+    font-family: 'Lora', serif;
+    font-size: 0.78rem;
+    font-style: italic;
+    color: var(--bark);
+    margin-top: 0.3rem;
+  }
+
+  /* ── TRAININGS ── */
+  #trainings {
+    background: var(--white);
+  }
+
+  .training-timeline {
+    position: relative;
+    padding-left: 3rem;
+  }
+
+  .training-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.4rem;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--wheat), transparent);
+  }
+
+  .training-item {
+    position: relative;
+    margin-bottom: 1.8rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+
+  .training-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .training-item::before {
+    content: '';
+    position: absolute;
+    left: -2.65rem;
+    top: 0.4rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--wheat);
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 2px var(--wheat);
+  }
+
+  .training-dur {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+  }
+
+  .training-name {
+    font-family: 'Lora', serif;
+    font-size: 0.9rem;
+    color: var(--soil);
+    line-height: 1.5;
+  }
+
+  /* ── AWARDS ── */
+  #awards {
+    background: linear-gradient(135deg, var(--moss) 0%, var(--soil) 100%);
+    color: var(--cream);
+    text-align: center;
+    padding: 6rem 3rem;
+  }
+
+  #awards .section-title { color: var(--wheat); }
+  #awards .section-header { justify-content: center; }
+
+  .award-box {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(200,169,94,0.3);
+    padding: 3rem 4rem;
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .award-box::before, .award-box::after {
+    content: '❧';
+    position: absolute;
+    font-size: 1.5rem;
+    color: var(--wheat);
+    opacity: 0.5;
+  }
+
+  .award-box::before { top: 1rem; left: 1.5rem; }
+  .award-box::after { bottom: 1rem; right: 1.5rem; transform: rotate(180deg); }
+
+  .award-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--wheat);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .award-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.4;
+    margin-bottom: 0.8rem;
+  }
+
+  .award-org {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    color: rgba(245,240,232,0.6);
+    font-size: 0.9rem;
+  }
+
+  /* ── REFERENCES ── */
+  #references {
+    background: var(--fog);
+  }
+
+  .ref-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .ref-card {
+    border: 1px solid rgba(61,43,31,0.12);
+    padding: 2rem;
+    background: var(--white);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .ref-card:hover {
+    border-color: var(--wheat);
+    box-shadow: 4px 4px 0 var(--wheat);
+  }
+
+  .ref-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--soil);
+    margin-bottom: 0.3rem;
+  }
+
+  .ref-role {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--bark);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .ref-contact {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--leaf);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    padding: 3rem;
+    text-align: center;
+  }
+
+  footer p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: rgba(245,240,232,0.3);
+    text-transform: uppercase;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .container { padding: 0 1.5rem; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .ref-grid { grid-template-columns: 1fr; }
+    .edu-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .edu-marks { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Karthik A N</div>
+  <ul class="nav-links">
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#trainings">Trainings</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Agricultural Scientist · PhD Scholar</div>
+    <h1 class="hero-name">Karthik<em>A N</em></h1>
+    <p class="hero-title">M.Sc. (Agri.) in Agronomy — researching sustainable crop systems, weed management, and the future of Indian agriculture.</p>
+    <div class="hero-contact">
+      <span>📞 +91-94818 19181</span>
+      <span>✉ karthikandanur17@gmail.com</span>
+      <span>📍 Davanagere, Karnataka, India</span>
+      <span>🎂 17 November 1997</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-deco">KAN</div>
+    <div class="quick-stats">
+      <div class="stat-box">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Int'l Papers</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">89.5%</div>
+        <div class="stat-label">M.Sc. Score</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">9+</div>
+        <div class="stat-label">Trainings</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">NET</div>
+        <div class="stat-label">ICAR Qualified</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Education</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-item">
+        <div class="edu-year">2023 – Present</div>
+        <div>
+          <div class="edu-degree">Ph.D. in Agronomy</div>
+          <div class="edu-inst">UAS GKVK, Bengaluru</div>
+        </div>
+        <div class="edu-marks">—<small>Ongoing</small></div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2024 – 2025</div>
+        <div>
+          <div class="edu-degree">PGDAWM</div>
+          <div class="edu-inst">NIAEM, Hyderabad</div>
+        </div>
+        <div class="edu-marks">82%<small>Score</small></div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2023 – 2024</div>
+        <div>
+          <div class="edu-degree">PGDAEM</div>
+          <div class="edu-inst">NIAEM, Hyderabad</div>
+        </div>
+        <div class="edu-marks">79.1%<small>Score</small></div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2023</div>
+        <div>
+          <div class="edu-degree">NET-ICAR</div>
+          <div class="edu-inst">ASRB, Dept. of Agricultural Research & Education</div>
+        </div>
+        <div class="edu-marks">✓<small>Qualified</small></div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2020 – 2022</div>
+        <div>
+          <div class="edu-degree">M.Sc. (Agri.) in Agronomy</div>
+          <div class="edu-inst">UAS GKVK, Bengaluru</div>
+        </div>
+        <div class="edu-marks">8.95<small>CGPA</small></div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2016 – 2020</div>
+        <div>
+          <div class="edu-degree">B.Sc. (Agriculture)</div>
+          <div class="edu-inst">College of Sericulture, Chintamani</div>
+        </div>
+        <div class="edu-marks">8.10<small>CGPA</small></div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2013 – 2015</div>
+        <div>
+          <div class="edu-degree">P.U.C (Science)</div>
+          <div class="edu-inst">Sir M.V. PU College, Davanagere</div>
+        </div>
+        <div class="edu-marks">79.83%<small>Score</small></div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2013</div>
+        <div>
+          <div class="edu-degree">S.S.L.C</div>
+          <div class="edu-inst">Sri Taralabalu Jagadguru High School, Davanagere</div>
+        </div>
+        <div class="edu-marks">82.88%<small>Score</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Competencies</h2>
+      <div class="section-line" style="background: linear-gradient(to right, rgba(200,169,94,0.5), transparent);"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">🌾</div>
+        <div class="skill-name">Agronomy & Crop Science</div>
+        <div class="skill-desc">IWM, INM, sustainable agriculture, crop productivity, weed management, nano-technology applications in crop systems.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📊</div>
+        <div class="skill-name">Research & Data Analysis</div>
+        <div class="skill-desc">R Software, RS & GIS, statistical analysis, My Loft & Sententia software, research data management.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🤝</div>
+        <div class="skill-name">Leadership & Teamwork</div>
+        <div class="skill-desc">Team leader in RAWE programme, mess prefect, teaching assistant, diplomatic people management.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">✍️</div>
+        <div class="skill-name">Scientific Writing</div>
+        <div class="skill-desc">International peer-reviewed publications, book chapters, popular science articles, conference presentations.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🌱</div>
+        <div class="skill-name">Sustainable Farming</div>
+        <div class="skill-desc">Natural & organic farming, biochar, green manuring, carbon farming, efficient fertilizer & water management.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🗣️</div>
+        <div class="skill-name">Communication</div>
+        <div class="skill-desc">Fluent in Kannada, English & Telugu. Oral and poster presentations at national & international conferences.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Publications</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="pub-tabs">
+      <button class="pub-tab active" onclick="switchTab('intl')">International</button>
+      <button class="pub-tab" onclick="switchTab('natl')">National</button>
+      <button class="pub-tab" onclick="switchTab('popular')">Popular Articles</button>
+      <button class="pub-tab" onclick="switchTab('books')">Books & Chapters</button>
+    </div>
+
+    <div class="pub-list active" id="tab-intl">
+      <div class="pub-item">
+        <div class="pub-title">Exploring the Dynamics of Nitrogen from Conventional Manures in the Soil Plant Atmosphere Continuum: A Comprehensive Review</div>
+        <div class="pub-authors">N. Pruthviraj, K. Murali, Arakanti Chaitanya, M. C. Harish and A. N. Karthik</div>
+        <div class="pub-journal">Communications in Soil Science and Plant Analysis · March 2024</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title">Influence of intercrops and nutrients on growth and yield of BN hybrid grass</div>
+        <div class="pub-authors">Vijaykumar P Dasar, Boraiah B, Vinay M Gangana Gowdra, Pruthviraj N, Kushal, Karthik A N and Harish M C</div>
+        <div class="pub-journal">International Journal of Research in Agronomy · 2024, 7(8): 787–791</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title">Nano nitrogen and phosphorous influence on growth, yield and economics of maize</div>
+        <div class="pub-authors">Asha Kiran K, Jayadeva H M, Vinay M Gangana Gowdra, Pruthviraj N, Kotresh D J, Karthik A N and Harish M C</div>
+        <div class="pub-journal">International Journal of Advanced Biochemistry Research · 2024, 8(8): 1363–1367</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title">Evaluation of the altered enzymatic and pollen activity in sunflower on application of nanoparticles</div>
+        <div class="pub-authors">N Pruthviraj, KN Geetha, CP Chandrashekara, et al. including A. N. Karthik</div>
+        <div class="pub-journal">Plant Physiology and Biochemistry · 2024, 220, p.109471</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title">Evaluating forage land-use systems in semi-arid tropics of India: A multi-criteria assessment of productivity, profitability, energy, and environmental impact</div>
+        <div class="pub-authors">Kumar R.M., Yamanura M., Nagangoudar M.B., Venkatesh P., Karthik A.N., et al.</div>
+        <div class="pub-journal">Environmental and Sustainability Indicators · 2025, p.100790</div>
+      </div>
+    </div>
+
+    <div class="pub-list" id="tab-natl">
+      <div class="pub-item">
+        <div class="pub-title">Weed Management in Transplanted Rice — A Review</div>
+        <div class="pub-authors">K. N. Geetha, S. Kamala Bai, A. S. Pavan, A. N. Karthik and K. K Sindhu</div>
+        <div class="pub-journal">Mysore Journal of Agricultural Sciences · 56(1): 1–18 (2022)</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title">Weed management in organic kodo millet in Eastern dry zone of Karnataka</div>
+        <div class="pub-authors">B.M. Gurubasavaswamy, K.N. Geetha, S. Kamala Bai, N. Pruthviraj, A.N. Karthik, et al.</div>
+        <div class="pub-journal">Indian Journal of Weed Science · (2023) 55(3): 355–358</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title">Evaluation of pre and early post emergent herbicides in soybean (Glycine max L. Merrill)</div>
+        <div class="pub-authors">A. N. Karthik and S. Kamala Bai</div>
+        <div class="pub-journal">Mysore Journal of Agricultural Sciences · 57(3): 463 (2023)</div>
+      </div>
+    </div>
+
+    <div class="pub-list" id="tab-popular">
+      <div class="pub-item">
+        <div class="pub-title">Green manuring: harnessing the power of nature to cultivate healthy soils</div>
+        <div class="pub-authors">Laxman Navi, Karthik A.N., Harish M.C. and Vineeth M</div>
+        <div class="pub-journal">Agri Articles e-Magazine · Vol. 03, Issue 06 (Nov–Dec 2023)</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title">Fields of Resilience: Nurturing the Future of Agriculture with Inter-cropping Strategies</div>
+        <div class="pub-authors">Laxman Navi, Vineeth M, Harish M.C. and Karthik A.N.</div>
+        <div class="pub-journal">Agri Articles e-Magazine · Vol. 04, Issue 01 (Jan–Feb 2024)</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title">Harnessing Biochar: A Sustainable Approach for Soil Health and Carbon Sequestration</div>
+        <div class="pub-authors">Usha N., Karthik A.N., Megharaj Mysore</div>
+        <div class="pub-journal">Agriculture & Food E-Newsletter · Vol. 06, Issue 04 (Apr 2024)</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title">Role of Renewable Energy in Agriculture</div>
+        <div class="pub-authors">Karthik A.N., Dhanush G., Usha N., and Laxman Navi</div>
+        <div class="pub-journal">Agri Articles e-Magazine · Vol. 05, Issue 02 (Mar–Apr 2025)</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title">Carbo Farming: A Green Intervention Towards Mitigation of Climate Change</div>
+        <div class="pub-authors">Kotresh D.J., Karthik A.N., Dhanush G. and Mopagar M.M.</div>
+        <div class="pub-journal">Kisan World · Vol. 51, Issue 09 (2024) pp 37–40</div>
+      </div>
+    </div>
+
+    <div class="pub-list" id="tab-books">
+      <div class="pub-item">
+        <div class="pub-title">Weed Identification Hand Book — "Search, Feel and Make Decision"</div>
+        <div class="pub-authors">S.Kamala Bai, K.N. Geetha, A.N.Sringeswara, Boraiah B., Karthik A.N., et al.</div>
+        <div class="pub-journal">AICRP on Weed Management, UAS GKVK · ISBN: 978-81-968342-0-3</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title">Biogas production in Indian scenario [Book Chapter 1]</div>
+        <div class="pub-authors">Laxman Navi, Vineeth M, Karthik A N, Harish M C</div>
+        <div class="pub-journal">Biotech Applications of Algal and Cyanobacteria... · ISBN: 978-93-6039-472-1, pp 1–10</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title">Application of Nanotechnology in Sustainable Agronomy [Chapter 11]</div>
+        <div class="pub-authors">Karthik A N, Usha N and Dhanush G</div>
+        <div class="pub-journal">Innovations in Sustainable Agronomic Practices · ISBN: 978-93-48240-85-9, pp 277–294</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title">Natural Farming: Let's Go Beyond Organic Farming [Chapter 9]</div>
+        <div class="pub-authors">Usha N, Karthik A N and Kotresh D J</div>
+        <div class="pub-journal">Current Trends and Advances in Agricultural Sciences · ISBN: 978-81-973427-5-2, pp 100–113</div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-title">Plant Hormones and Growth Regulation [Chapter 4]</div>
+        <div class="pub-authors">Laxman Navi, Dayanandanaik S., Atheek Ur Rehaman H.M., and Karthik A.N.</div>
+        <div class="pub-journal">Plant Science and Agriculture: Integrative Approaches... · ISBN: 978-93-48909-76-3, pp 56–84</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAININGS -->
+<section id="trainings">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Trainings & Courses</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="training-timeline">
+      <div class="training-item">
+        <div class="training-dur">Jan 2019 · 5 Days</div>
+        <div class="training-name">Value Addition of Fruits & Vegetables — Mango Post Harvest Handling Centre, Chintamani & KSMDMC, Bengaluru</div>
+      </div>
+      <div class="training-item">
+        <div class="training-dur">Feb 2021 · 2 Days</div>
+        <div class="training-name">Livestock Management — Skill Development Centre & ZARS, UAS GKVK, Bengaluru</div>
+      </div>
+      <div class="training-item">
+        <div class="training-dur">Sep 2021 · 4 Days</div>
+        <div class="training-name">My Loft and Sententia Software Access — UAS Library, GKVK, Bengaluru</div>
+      </div>
+      <div class="training-item">
+        <div class="training-dur">May 2022 · 2 Days</div>
+        <div class="training-name">Application of Nano-technology in Agriculture to Enhance Input Use Efficiency — Skill Development Centre under ICAR-SC-SP</div>
+      </div>
+      <div class="training-item">
+        <div class="training-dur">Dec 2022 · 7 Days</div>
+        <div class="training-name">International Faculty Development Programme: "Improving the Writing Skills of Early Career Researchers" — SKAUST-K & Just Agriculture Education Group</div>
+      </div>
+      <div class="training-item">
+        <div class="training-dur">May–Jul 2022 · 89 Days</div>
+        <div class="training-name">International Virtual Course: Tackling Climate Change through Global Learning — UAS Bangalore, Zurich University, Federal Univ. Brazil & Univ. of Nairobi</div>
+      </div>
+      <div class="training-item">
+        <div class="training-dur">Jan 2023 · 30 Days</div>
+        <div class="training-name">Winter School — Krishi Manthan: Smart Farming & Agripreneurship — PDKV Akola Agribusiness Incubation Centre</div>
+      </div>
+      <div class="training-item">
+        <div class="training-dur">Nov 2023 · 9 Days</div>
+        <div class="training-name">Agricultural Research Data Analysis using R Software — Skill Development Centre & Dept. of Agricultural Statistics, UAS GKVK</div>
+      </div>
+      <div class="training-item">
+        <div class="training-dur">Nov 2023 · 12 Days</div>
+        <div class="training-name">RS & GIS Applications in Natural Resource Management — Indian Institute of Remote Sensing (IIRS), ISRO, Dehradun</div>
+      </div>
+      <div class="training-item">
+        <div class="training-dur">Apr 2024 · 30 Days</div>
+        <div class="training-name">PM & Ministry of Agriculture Sponsored Agriculture Scheme & Indian Agriculture Vision-2050 International Certificate Course — Gujarat Natural Farming Science University & ICAR institutes</div>
+      </div>
+      <div class="training-item">
+        <div class="training-dur">Mar 2024 · 1 Day</div>
+        <div class="training-name">MOEFCC Sponsored Training: Forest Resource Management — Dept. of Forestry and Environmental Science, UAS GKVK</div>
+      </div>
+      <div class="training-item">
+        <div class="training-dur">Jul 2024 · 1 Day</div>
+        <div class="training-name">Natural and Organic Farming Practices for Sustainable Resource Use Efficiency — UAS, Bangalore</div>
+      </div>
+      <div class="training-item">
+        <div class="training-dur">2024–25 · 1 Year</div>
+        <div class="training-name">Beekeeping Certificate Course — Distance Education Unit, UAS Bangalore</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section id="awards">
+  <div class="section-header" style="justify-content:center; margin-bottom:2.5rem;">
+    <span class="section-num" style="color:var(--wheat);">05</span>
+    <h2 class="section-title" style="color:var(--cream);">Award</h2>
+  </div>
+  <div class="award-box">
+    <div class="award-year">2024</div>
+    <div class="award-title">Best M.Sc. Thesis Award</div>
+    <div class="award-org">Hindustan Agricultural Research Welfare Society, Agra<br>in association with Southern Federal University, Russia</div>
+  </div>
+</section>
+
+<!-- REFERENCES -->
+<section id="references">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2 class="section-title">References</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="ref-grid">
+      <div class="ref-card">
+        <div class="ref-name">Dr. Kamala Bai, S.</div>
+        <div class="ref-role">Junior Agronomist<br>AICRP on Weed Management<br>UAS, GKVK, Bengaluru – 65</div>
+        <div class="ref-contact">
+          <span>📞 +91-94498 04296</span>
+          <span>✉ skamalabai@gmail.com</span>
+        </div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-name">Dr. Lalitha, B. S.</div>
+        <div class="ref-role">Professor<br>Department of Agronomy<br>UAS, GKVK, Bengaluru – 65</div>
+        <div class="ref-contact">
+          <span>📞 +91-96328 63100</span>
+          <span>✉ lalithabs@gmail.com</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Karthik A N · Agronomy Research Scholar · Bengaluru, Karnataka · Updated January 2026</p>
+</footer>
+
+<script>
+  // Tab switching
+  function switchTab(id) {
+    document.querySelectorAll('.pub-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.pub-list').forEach(l => l.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('tab-' + id).classList.add('active');
+  }
+
+  // Scroll reveal for training items
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.training-item').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
